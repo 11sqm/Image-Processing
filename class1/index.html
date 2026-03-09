@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>班级打卡签到</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>班级打卡签到系统</h1>
+
+    <!-- 上传班级名单 -->
+    <div id="class-setup">
+        <h2>设置班级名单</h2>
+        <input type="file" id="csv-file" accept=".csv">
+        <button id="load-csv">加载CSV名单</button>
+        <p id="class-info">班级总人数: 0</p>
+    </div>
+
+    <!-- 出勤率显示 -->
+    <div id="attendance-rate">
+        <h2>当天出勤率</h2>
+        <p id="rate-display">出勤率: 0% (0/0)</p>
+    </div>
+
+    <!-- 签到表单 -->
+    <form id="attendance-form">
+        <label for="name">姓名：</label>
+        <input type="text" id="name" required>
+        <button type="submit">签到</button>
+    </form>
+
+    <!-- 清空当天签到记录 -->
+    <button id="clear-today">清空当天签到记录</button>
+
+    <h2>签到记录</h2>
+    <ul id="attendance-list"></ul>
+
+    <!-- 图表切换 -->
+    <h2>统计图表</h2>
+    <button id="toggle-chart">切换到出勤率图表</button>
+    <canvas id="attendance-chart"></canvas>
+
+    <!-- 新增脚本 -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5/papaparse.min.js"></script> <!-- CSV解析库 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
