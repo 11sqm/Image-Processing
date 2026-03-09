@@ -43,6 +43,17 @@
     <button id="toggle-chart">切换到出勤率图表</button>
     <canvas id="attendance-chart"></canvas>
 
+    <!-- 注册表单 -->
+    <div id="register-section">
+        <h2>注册新成员</h2>
+        <form id="register-form">
+            <label for="new-name">新姓名：</label>
+            <input type="text" id="new-name" required>
+            <button type="submit">注册</button>
+        </form>
+        <button id="download-csv">下载更新后的CSV名单</button>
+    </div>
+
     <!-- 新增脚本 -->
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5/papaparse.min.js"></script> <!-- CSV解析库 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

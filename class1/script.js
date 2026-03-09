@@ -10,6 +10,11 @@ const rateDisplay = document.getElementById('rate-display');
 const toggleChartBtn = document.getElementById('toggle-chart');
 const clearTodayBtn = document.getElementById('clear-today');
 
+// 获取新元素
+const registerForm = document.getElementById('register-form');
+const newNameInput = document.getElementById('new-name');
+const downloadCsvBtn = document.getElementById('download-csv');
+
 // 全局变量
 let chart;
 let classList = JSON.parse(localStorage.getItem('classList')) || []; // 班级名单
@@ -162,6 +167,42 @@ clearTodayBtn.addEventListener('click', () => {
     updateAttendanceRate();
     drawChart();
     alert('当天签到记录已清空！');
+});
+
+// 注册事件
+registerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const newName = newNameInput.value.trim();
+    if (newName && !classList.includes(newName)) {
+        classList.push(newName);
+        localStorage.setItem('classList', JSON.stringify(classList));
+        updateClassInfo();
+        updateAttendanceRate();
+        drawChart();
+        newNameInput.value = '';
+        alert('注册成功！已添加到班级名单。');
+    } else if (classList.includes(newName)) {
+        alert('该姓名已存在！');
+    } else {
+        alert('请输入有效姓名！');
+    }
+});
+
+// 下载CSV
+downloadCsvBtn.addEventListener('click', () => {
+    if (classList.length === 0) {
+        alert('名单为空，无法下载！');
+        return;
+    }
+    const csvContent = classList.join('\n'); // 简单CSV格式
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '班级名册.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+    alert('CSV下载完成！请保存到原位置覆盖旧文件。');
 });
 
 // 初始化
